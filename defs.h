@@ -231,6 +231,7 @@ int systrap(int, char **);
 #define	sleep(a)	sh_sleep(a)
 void sleep(unsigned int);
 void sigsegv(int, siginfo_t *);
+void alloc_sigsegv_stack(void);
 void init_sigval(void);
 /* func.c */
 void freefunc(struct namnod *);

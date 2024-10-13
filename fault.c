@@ -43,7 +43,7 @@
 #include	<string.h>
 
 static	void (*psig0_func)(int) = SIG_ERR;	/* previous signal handler for signal 0 */
-static	char sigsegv_stack[SIGSTKSZ];
+static	char *sigsegv_stack = NULL;
 
 static BOOL sleeping = 0;
 static unsigned char *trapcom[MAXTRAP]; /* array of actions, one per signal */
@@ -507,6 +507,14 @@ sigsegv(int sig, siginfo_t *sip)
 			exit(ERROR);
 		}
 	}
+}
+
+void
+alloc_sigsegv_stack(void)
+{
+	size_t sigstksz = SIGSTKSZ;
+	sigsegv_stack = malloc(sigstksz);
+	memset(sigsegv_stack, 0, sigstksz);
 }
 
 void 
